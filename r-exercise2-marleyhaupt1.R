@@ -12,11 +12,12 @@ for (i in 20:10){
 prime<-function(x){
   for (i in x-1:2){
     x %% i
-  }
   if(x == 0){
+    break
     print("No")
     }
     else{
       print("Yes")
     }
   }
+}
