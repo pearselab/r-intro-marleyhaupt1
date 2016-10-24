@@ -204,21 +204,58 @@ sort(x)
 # [1]  1  2  3  4  5  6  7  8  9 10
 
 ##### outer - Outer Product of Arrays
-  # - 
+  # - the outer product of two arrays X and Y is the array A with dimension c(dim(X),dim(Y))
+x<-1:9
+y<-2:8
+outer(x,y)
 
-##### rep
+##### rep - Replicate Elements of Vectors and Lists
+  # - replicates the values in x, rep.int and rep_len are faster simplified versions
+x<-1:9
+rep(x)
+rep.int(x,2)
+rep_len(x,2)
 
-##### rowSum, colSum
+##### rowSums, colSums - Form Row and Columns Sums and Means
+  # - Form row and column sums and means for numeric arrays (or data frames)
+x<-matrix(1:20,4,5)
+colSums(x)
+rowSums(x)
 
-##### seq
+##### seq - Sequence
+  # - creates a sequence vector
+x<-seq(1,20,by=2)
 
-##### source
+##### source - Read R Code from a File or a Connection
+  # - allows R to accept input from a named file or URL connection. Input is read and parsed
+  # - that file until the end of the file is reached, then the parsed expressions are eval-
+  # - uated sequentially in the chosen environment
+setwd("/Users/marleyjadehaupt/Dropbox/Docs_Marley/Graduate_Courses/BIOL4750_BayesianStats/RScripts/")
+source("normalGibbs.r")
 
-##### which, which.min, which.max
+##### which, which.min, which.max - Which indices are TRUE? Where is the Min() or Max() or first
+  ##### - TRUE or FALSE
+  # - Give the TRUE indices of a logical object, allowing for array indices
+  # - Determines the location, i.e., index of the (first) min or max of a numeric (or logical vector)
+which(LETTERS == "A")
+x<-c(3,7,8,1,2,10,9)
+which.min(x)
 
-##### setdiff, intersect, union
+##### setdiff, intersect, union - Set Operations
+  # - shows the different values, shows the same values, combines the two together
+x<-c(1,2,3,4)
+y<-c(4,5,6,7)
+union(x,y)
+intersect(x,y)
+setdiff(x,y)
+setdiff(y,x)
 
-##### table
+##### table - Cross Tabulation and Table Creation
+  # - uses the cross-classifying factors to build a contingency table of the counts at each 
+  # - combination of factor levels
+table
+a<-rep(c(NA,1/0:3),10)
+table(a)
 
 ##### with (look at the examples because the technical explanation is way too smart for me)
 
