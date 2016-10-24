@@ -13,11 +13,8 @@ prime<-function(x){
   for (i in x-1:2){
     x %% i
   if(x == 0){
-    break
-    print("No")
-    }
-    else{
-      print("Yes")
+    return(FALSE)
     }
   }
+  return(TRUE)
 }
