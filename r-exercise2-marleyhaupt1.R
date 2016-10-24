@@ -10,9 +10,9 @@ for (i in 20:10){
 } 
 ## 3. Write a function that calculates whether a number is a prime number
 prime<-function(x){
-  for (i in x-1:2){
-    x %% i
-  if(x == 0){
+  for (i in (x-1):2){
+    r<-x %% i 
+  if(r == 0){
     return(FALSE)
     }
   }
