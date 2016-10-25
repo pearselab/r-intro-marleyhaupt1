@@ -21,4 +21,15 @@ prime<-function(x){
   return(TRUE)
 }
 
-## 4. 
+## 4. Write a loop that prints out the numbers from 1 to 20, printing
+  # "Good: NUMBER" if the number is divisible by five and "Job: NUMBER"
+  # if the number is prime, and nothing otherwise.
+for (i in 1:20){
+  f<-i %% 5
+  if(f == 0){
+    print("Good: NUMBER")
+  }
+  for (p in 2:(p-1)){
+    r<-
+  }
+}

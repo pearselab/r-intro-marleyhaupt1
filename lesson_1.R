@@ -253,12 +253,18 @@ setdiff(y,x)
 ##### table - Cross Tabulation and Table Creation
   # - uses the cross-classifying factors to build a contingency table of the counts at each 
   # - combination of factor levels
-table
 a<-rep(c(NA,1/0:3),10)
 table(a)
 
-##### with (look at the examples because the technical explanation is way too smart for me)
-
+##### with - Evaluate an Expression in a Data Environment
+  # - Evaluate an R expression in an environment constructed from data, possibly modifying
+  # - (a copy of) the original data
+library(MASS)
+with(anorexia, {
+  anorex.1<-glm(Postwt ~ Prewt + Treat +  offset(Prewt),
+                family = gaussian)
+  summary(anorex.1)
+})
 
 ################################################
 ## Bonus exercises #############################
@@ -273,3 +279,5 @@ were all going direct to Heaven, we were all going direct the other
 way- in short, the period was so far like the present period, that
 some of its noiosiest authorities insisted on its being received, for
 good or for evil, in the superlative degree of comparison only."
+
+## A Tale of Two Cities! (I didn't even have to google this)
