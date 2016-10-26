@@ -45,10 +45,15 @@ for (i in 1:20){
   # a and b are parameters, and e is the exponential function. Write them a 
   # function that calculates population size at any time for any values of its
   # parameters.
+gompertz<-function(time, a, b, growth){
+  y<-a*exp(-b*exp(-growth*time))
+  return(y)
+}
 
 ## 6. The biologist likes your function so they want you to write another
   # function that plots the progress of the population over a given length of
   # time. Write it for them.
+plotgomp<-function()
 
 ## 7. The biologist has fallen in love with your plotting function, but wants
   # to color y values above a as blue and y values above b as red. Change your
