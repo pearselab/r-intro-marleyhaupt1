@@ -24,29 +24,28 @@ prime<-function(x){
 ## 4. Write a loop that prints out the numbers from 1 to 20, printing
   # "Good: NUMBER" if the number is divisible by five and "Job: NUMBER"
   # if the number is prime, and nothing otherwise.
+
 for (i in 1:20){
   f<-i %% 5
   if(f == 0){
     print("Good: NUMBER")
     print(i)
-  }
-  for (p in 2:(i-1)){
-    g<- i %% p
-    if(g == 0){
-    } else{
-      print("Job: NUMBER")
-      print(i)
-    }
+  } 
+  p<-i %% 2:(i-1)       ## Returns 15 as prime too. Not sure why
+  if(p == 0){
+  } else {
+    print ("Job: NUMBER")
+    print(i)
   }
 }
 
-## 5. A biologist is modelling population growth using a Gompertz curve, which
+## 5. A biologist is modeling population growth using a Gompertz curve, which
   # is defined as y(t) = a.e^−b.e^−c.t where y is population size, t is time,
   # a and b are parameters, and e is the exponential function. Write them a 
   # function that calculates population size at any time for any values of its
   # parameters.
-gompertz<-function(time, a, b, growth){
-  y<-a*exp(-b*exp(-growth*time))
+gompertz<-function(time, a, b, c){
+  y<-a*exp^(-b*exp^(-c*time))
   return(y)
 }
 
@@ -111,7 +110,7 @@ plotgomp<-function()
   # cliff! He asks if you could run your simulation to see how long, on average,
   # until the faculty member plummets to their doom.
 
-## 16. Sadly, by the time you have completed your simulatiosn the faculty member
+## 16. Sadly, by the time you have completed your simulation the faculty member
   # has perished. Professor Savitzky is keep to ensure this will never happen again,
   # and so has suggested each faculty member be attached, via rubber band, to a 
   # pole at the center of the site whenever conducting fieldwork. He assures you

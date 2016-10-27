@@ -33,15 +33,22 @@ ask.cat.cat <- function(x, ...)
   return("CAT!!")
 
 # 2. Implement a point class that holds x and y information for a point in space.
-new.point<-function(x,y){
+pointclass<-function(x,y){
   output<-list(x=x,y=y)
   class(output)<-"point"
   return(output)
 }
 
 # 3. Write a distance method that calculates the distance between two points in space.
+distance<-function(point1, point2){ 
+  if(!inherits(point1,"point") | !inherits(point2,"point"))
+     stop("Not a Point Class") 
+  output<-sqrt((point1$x - point2$x)^2 + (point1$y - point2$y)^2)
+  return(output)
+}
 
 # 4. Implement a line class that takes two point objects and makes a line between them.
+
 
 # 5. Implement a polygon class that stores a polygon from point objects. Hint: a polygon
   # is really just a load of lines.
