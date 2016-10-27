@@ -51,8 +51,8 @@ for (i in 1:20){
   # function that calculates population size at any time for any values of its
   # parameters.
 gompertz<-function(time, a, b, c){
-  y<-a*exp^(-b*exp^(-c*time))
-  return(y)
+ y<-a*exp(-b*exp(-c*time))
+ return(y)
 }
 
 ## 6. The biologist likes your function so they want you to write another
@@ -132,5 +132,5 @@ plotgomp<-function()
   # survival. What would happen if a faculty member panicked and walked faster
   # through time?)
 
-## Bonus Exercises: Your loops will go a lot faster in R if you pre-allocate your output
+## Bonus Exercises: Your loops will go a lot faster in R if you pre-allocate your output 
   # variables....
