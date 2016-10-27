@@ -30,11 +30,17 @@ for (i in 1:20){
   if(f == 0){
     print("Good: NUMBER")
     print(i)
-  } 
-  p<-i %% 2:(i-1)       ## Returns 15 as prime too. Not sure why
-  if(p == 0){
-  } else {
-    print ("Job: NUMBER")
+  }
+  t<-TRUE
+  for(j in 2:(i-1)){
+    p<-i %% j
+    if(p == 0){
+      t<-FALSE
+      break
+    }
+  }
+  if(t == TRUE || i == 1){
+    print("Job: NUMBER")
     print(i)
   }
 }
