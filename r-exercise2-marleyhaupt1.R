@@ -81,24 +81,78 @@ plotgomp<-function(start,end,by,a,b,c){
   for(i in 1:length(time)){
     y<-gompertz(start+(i-1)*by,a,b,c)
     popsize[i]<-y
-    if(popsize[i]>=a){
+    if(y>=a){
       color[i]<-"blue"
       } else {
         color[i]<-"black"
       }
-    if (popsize[i]>=b){
+    if (y>=b){
       color[i]<-"red"
     } else {
         color[i]<-"black"
-      }
-  plot(x=time, y=popsize, xlab="Time", ylab= "Population Size", main= "Gompertz Plot", col=color)
+    }
   }
+  plot(x=time, y=popsize, xlab="Time", ylab= "Population Size", main= "Gompertz Plot", col=color)
+  abline(h=a, col="blue", lty=2)
+  abline(h=b, col="red", lty=2)
 }
 
 ## 8. You are beginning to suspect the biologist is taking advantage of you.
   # Modify your function to plot in purple any y value that is above a and b.
   # Hint: Try putting 3==3 & 2==2 and 3==4 | 2==2 into an if statement and see
   # what you get. Using this construction may make this simpler.
+plotgomp<-function(start,end,by,a,b,c){
+  time<-seq(from = start,to = end,by = by)
+  len <- length(time)
+  popsize<-c(len)
+  a1<-NULL
+  a2<-NULL
+  b1<-NULL
+  b2<-NULL
+  ab1<-NULL
+  ab2<-NULL
+  abmax<-max(a,b)
+  for(i in 0:len){
+    t<-start + (i-1)*by
+    y<-gompertz(t,a,b,c)
+    popsize[i] = y
+    #a line seg
+    if(y > a && is.null(a1)){
+      a1<-i
+    }
+    if(is.null(a2) && !is.null(a1) && (y <= a || i == len)){
+      a2<-i
+    }
+    #b line seg
+    if(y > b && is.null(b1)){
+      b1<-i
+    }
+    if(is.null(b2) && !is.null(b1) && (y <= b || i == len)){
+      b2<-i
+    }
+    #ab line seg
+    if(y > b && y > a && is.null(ab1)){
+      ab1<-i
+      abmax<-y
+    }
+    if(is.null(ab2) && !is.null(ab1) && ((y <= a && y <= b) || i == len)){
+      ab2<-i
+    }
+  }
+  plot(x = time,y = popsize,type = "l")
+  abline(h = a,col = "blue",lty = 2)
+  if(!is.null(a1)){
+    lines(x = time[a1:a2],y = popsize[a1:a2],col = "blue")
+  }
+  abline(h = b,col = "red",lty = 2)
+  if(!is.null(b1)){
+    lines(x = time[b1:b2],y = popsize[b1:b2],col = "red")
+  }
+  abline(h = abmax,col = "purple",lty = 2)
+  if(!is.null(ab1)){
+    lines(x = time[ab1:ab2],y = popsize[ab1:ab2],col = "purple")
+  }
+}
 
 ## 9. Write a function that draws boxes of a specified height and look like this
   # (height 3, width 5):

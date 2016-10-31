@@ -48,7 +48,11 @@ distance<-function(point1, point2){
 }
 
 # 4. Implement a line class that takes two point objects and makes a line between them.
-
+lineclass<-function(point1, point2){
+  if(!inherits(point1,"point") | !inherits(point2,"point"))
+    stop("Not a Point Class")
+  plot(x = list(point1$x,point2$x),y= list(point1$y,point2$y), type='l')
+}
 
 # 5. Implement a polygon class that stores a polygon from point objects. Hint: a polygon
   # is really just a load of lines.
