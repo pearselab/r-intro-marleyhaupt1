@@ -67,8 +67,8 @@ plotgomp<-function(start,end,by,a,b,c){
   }
   plot(x=time, y=popsize, xlab="Time", 
        ylab="Population Size", main="Gompertz Plot")
-  abline(h=a, lty=2, col="red")            # Adds a red horizontal line that intersects the y axis at the value of the parameter a
-  abline(h=b, lty=2, col="blue")           # Adds a blue horizontal line that intersects the y axis at the value of the parameter b
+  abline(h=a, lty=2, col="blue")            # Adds a red horizontal line that intersects the y axis at the value of the parameter a
+  abline(h=b, lty=2, col="red")           # Adds a blue horizontal line that intersects the y axis at the value of the parameter b
 }  
 
 ## 7. The biologist has fallen in love with your plotting function, but wants

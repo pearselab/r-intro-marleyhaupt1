@@ -57,6 +57,7 @@ lineclass<-function(point1, point2){
 # 5. Implement a polygon class that stores a polygon from point objects. Hint: a polygon
   # is really just a load of lines.
 
+
 # 6. Write plot methods for point and line objects.
 
 # 7. Write a plot method for a polygon. Hint: if this isn't trivial, your doing something
