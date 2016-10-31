@@ -43,7 +43,7 @@ for (i in 1:20){
     print("Job: NUMBER")
     print(i)
   }
-}
+} 
 
 ## 5. A biologist is modeling population growth using a Gompertz curve, which
   # is defined as y(t) = a.e^−b.e^−c.t where y is population size, t is time,
@@ -58,11 +58,45 @@ gompertz<-function(time, a, b, c){
 ## 6. The biologist likes your function so they want you to write another
   # function that plots the progress of the population over a given length of
   # time. Write it for them.
-plotgomp<-function()
+plotgomp<-function(start,end,by,a,b,c){     
+  time<-seq(start,end,by) 
+  popsize<-c(length(time))
+  for(i in 1:length(time)){
+   y<-gompertz(start+(i-1)*by,a,b,c)
+   popsize[i]<-y
+  }
+  plot(x=time, y=popsize, xlab="Time", ylab="Population Size", main="Gompertz Plot",type="l")
+  abline(h=a, lty=2, col="red")
+  abline(h=b, lty=2, col="blue")
+}  
 
 ## 7. The biologist has fallen in love with your plotting function, but wants
   # to color y values above a as blue and y values above b as red. Change your
   # function to allow that.
+plotgomp<-function(start,end,by,a,b,c){     
+  time<-seq(start,end,by) 
+  popsize<-c(length(time))
+  for(i in 1:length(time)){
+    y<-gompertz(start+(i-1)*by,a,b,c)
+    popsize[i]<-y
+  }
+  if(popsize>a){
+    plot(x=time, y=y,xlab="Time",ylab="Population Size",main="Gompertz Plot", type="l",col="red")
+    abline(h=a, lty=2, col="red")
+    abline(h=b, lty=2, col="blue")
+    
+    lines(a=a, lty=2, col="blue")
+    abline(a=b, lty=2, col="red")
+  }
+  if(popsize>b){
+    plot(x=time, y=y,xlab="Time",ylab="Population Size",main="Gompertz Plot",type="l",col="blue")
+    abline(h=a, lty=2, col="red")
+    abline(h=b, lty=2, col="blue")
+    
+    abline(a=a, lty=2, col="blue")
+    abline(a=b, lty=2, col="red")
+  }
+}
 
 ## 8. You are beginning to suspect the biologist is taking advantage of you.
   # Modify your function to plot in purple any y value that is above a and b.
@@ -74,13 +108,56 @@ plotgomp<-function()
   # *****
   # *   *
   # *****
+box<-function(height,width){
+  for (h in 1:height){
+   # Create Indext for my While Loop
+    w<-1
+    while(w<=width){
+      # Only put * on the border ( || means or)
+      if(h==1 || h==height || w==1 || w==width){
+      cat("*")
+      } else{
+        # If not on the border put a blank space inside the box ("" is not the same as " ")
+        cat(" ")
+      }
+      # Prevents an infinite loop, and a sad sad day for R
+      w<-w+1
+    } 
+    # For every new iteration of my for loop, create a new line
+    cat("\n")
+  }
+}
 
-## 10. Modify your box function to ut text centered inside the box, like this:
+## 10. Modify your box function to put text centered inside the box, like this:
   # *****************
   # *               *
   # *   some text   *
   # *               *
   # *****************
+box.text<-function(height,width,words){ 
+  # Makes the box fit the words incase the words dont fit the box
+  width<-max(width,nchar(words)+2)
+  height<-max(height,3)
+  for (h in 1:height){ 
+    w<-1
+    while(w<=width){
+      if(h==1 || h==height || w==1 || w==width){
+        cat("*")
+      } else{
+        ## Add words to the center of the box. Ceiling rounds up, floor rounds down
+        if(h==ceiling(height/2)     # Puts the words in the middle of the box vertically
+          && w==ceiling(width/2)-floor(nchar(words)/2)){ # Puts the words in the middle of the box horizontally and makes it center instead of left align
+          cat(words)      # Prints the words from the function
+          w<-w+nchar(words)-1   # Get rid of blank spaces so the box is actually a box and not something funky
+          } else {
+            cat(" ")
+        } 
+      } 
+      w<-w+1
+    } 
+    cat("\n")
+  }
+}
 
 ## 11. Modify your box function to build boxes of arbitrary text, taking the
   # demensions specified in terms of demensions, not the text. For example,
@@ -88,6 +165,34 @@ plotgomp<-function()
   # wdpwdpwdp
   # w  hey  w
   # wdpwdpwdp
+
+box.text.b<-function(border,height,width,words){ 
+  width<-max(width,nchar(words)+2)
+  height<-max(height,3)
+  for (h in 1:height){ 
+    w<-1
+    while(w<=width){
+      if(h==1 || h==height || w==1 || w==width){
+        if(h==1 || h==height){      # If the top or bottom of the box then use the text from the border parameter in the function
+          b<-((w-1)%%nchar(border))+1 # Makes b=1 when w=0 and then loops through the rest of the letters in the border parameter
+        } else{
+          b<-1  # If in the center rows, always start with the first letter of the border parameter
+        }
+        cat(substr(border,b,b)) # substr is a function that recognizes each letter in a word, cat then prints that letter based on the index "b" which we defined previously
+      } else {
+        if(h==ceiling(height/2)
+           && w==ceiling(width/2)-floor(nchar(words)/2)){
+          cat(words)
+          w<-w+nchar(words)-1
+        } else {
+          cat(" ")
+        } 
+      } 
+      w<-w+1
+    } 
+    cat("\n")
+  }
+}
 
 ## 12. In ecology, hurdle models are often used to model the abundance of species
   # found on surveys. They first model the probability that a species will be
