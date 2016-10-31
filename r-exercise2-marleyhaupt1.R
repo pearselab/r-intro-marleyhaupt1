@@ -82,18 +82,17 @@ plotgomp<-function(start,end,by,a,b,c){
     y<-gompertz(start+(i-1)*by,a,b,c)
     popsize[i]<-y
     if(popsize[i]>=a){
-      color[i]<-"red"{
+      color[i]<-"blue"
       } else {
         color[i]<-"black"
       }
     if (popsize[i]>=b){
-      color[i]<-"blue"
+      color[i]<-"red"
     } else {
         color[i]<-"black"
       }
-    }
-  }
   plot(x=time, y=popsize, xlab="Time", ylab= "Population Size", main= "Gompertz Plot", col=color)
+  }
 }
 
 ## 8. You are beginning to suspect the biologist is taking advantage of you.
