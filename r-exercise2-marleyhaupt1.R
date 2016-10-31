@@ -13,12 +13,12 @@ for (i in 20:10){
 ## 3. Write a function that calculates whether a number is a prime number
 prime<-function(x){
   for (i in (x-1):2){
-    r<-x %% i 
-  if(r == 0){
-    return(FALSE)
+    r<-x %% i            
+  if(r == 0){            
+    return(FALSE)      # If there is ever a mod with a remainder of 0 then the number is not prime and function will return FALSE and stop
     }
   }
-  return(TRUE)
+  return(TRUE)         # If the mod never turns up as 0 then the number is prime and the function will return TRUE
 }
 
 ## 4. Write a loop that prints out the numbers from 1 to 20, printing
@@ -26,15 +26,15 @@ prime<-function(x){
   # if the number is prime, and nothing otherwise.
 
 for (i in 1:20){
-  f<-i %% 5
+  f<-i %% 5                    # Checking if all of the numbers are divisable by 5
   if(f == 0){
     print("Good: NUMBER")
     print(i)
   }
-  t<-TRUE
+  t<-TRUE                      # Creating a number to test for prime (true=prime)
   for(j in 2:(i-1)){
     p<-i %% j
-    if(p == 0){
+    if(p == 0){                # This is basically the same as what I did in question 3
       t<-FALSE
       break
     }
@@ -59,43 +59,41 @@ gompertz<-function(time, a, b, c){
   # function that plots the progress of the population over a given length of
   # time. Write it for them.
 plotgomp<-function(start,end,by,a,b,c){     
-  time<-seq(start,end,by) 
-  popsize<-c(length(time))
+  time<-seq(start,end,by)                  # Creates a vector with sequenctial values of time between a specified start and end by any increment
+  popsize<-c(NA)                           # Creates a vector with the same length as the vector of time
   for(i in 1:length(time)){
    y<-gompertz(start+(i-1)*by,a,b,c)
-   popsize[i]<-y
+   popsize[i]<-y                           # Populates the vector "popsize" with the values calcuated in the gompertz equation
   }
-  plot(x=time, y=popsize, xlab="Time", ylab="Population Size", main="Gompertz Plot",type="l")
-  abline(h=a, lty=2, col="red")
-  abline(h=b, lty=2, col="blue")
+  plot(x=time, y=popsize, xlab="Time", 
+       ylab="Population Size", main="Gompertz Plot")
+  abline(h=a, lty=2, col="red")            # Adds a red horizontal line that intersects the y axis at the value of the parameter a
+  abline(h=b, lty=2, col="blue")           # Adds a blue horizontal line that intersects the y axis at the value of the parameter b
 }  
 
 ## 7. The biologist has fallen in love with your plotting function, but wants
   # to color y values above a as blue and y values above b as red. Change your
   # function to allow that.
 plotgomp<-function(start,end,by,a,b,c){     
-  time<-seq(start,end,by) 
-  popsize<-c(length(time))
+  time<-seq(start,end,by)
+  popsize<-c(NA) 
+  color<-c(NA)
   for(i in 1:length(time)){
     y<-gompertz(start+(i-1)*by,a,b,c)
     popsize[i]<-y
+    if(popsize[i]>=a){
+      color[i]<-"red"{
+      } else {
+        color[i]<-"black"
+      }
+    if (popsize[i]>=b){
+      color[i]<-"blue"
+    } else {
+        color[i]<-"black"
+      }
+    }
   }
-  if(popsize>a){
-    plot(x=time, y=y,xlab="Time",ylab="Population Size",main="Gompertz Plot", type="l",col="red")
-    abline(h=a, lty=2, col="red")
-    abline(h=b, lty=2, col="blue")
-    
-    lines(a=a, lty=2, col="blue")
-    abline(a=b, lty=2, col="red")
-  }
-  if(popsize>b){
-    plot(x=time, y=y,xlab="Time",ylab="Population Size",main="Gompertz Plot",type="l",col="blue")
-    abline(h=a, lty=2, col="red")
-    abline(h=b, lty=2, col="blue")
-    
-    abline(a=a, lty=2, col="blue")
-    abline(a=b, lty=2, col="red")
-  }
+  plot(x=time, y=popsize, xlab="Time", ylab= "Population Size", main= "Gompertz Plot", col=color)
 }
 
 ## 8. You are beginning to suspect the biologist is taking advantage of you.
@@ -110,21 +108,16 @@ plotgomp<-function(start,end,by,a,b,c){
   # *****
 box<-function(height,width){
   for (h in 1:height){
-   # Create Indext for my While Loop
-    w<-1
+    w<-1                                          # Create Index for my While Loop
     while(w<=width){
-      # Only put * on the border ( || means or)
-      if(h==1 || h==height || w==1 || w==width){
+      if(h==1 || h==height || w==1 || w==width){  # Only put * on the border ( || means or)
       cat("*")
-      } else{
-        # If not on the border put a blank space inside the box ("" is not the same as " ")
+      } else{                                     # If not on the border put a blank space inside the box ("" is not the same as " ")
         cat(" ")
       }
-      # Prevents an infinite loop, and a sad sad day for R
-      w<-w+1
+      w<-w+1                                      # Prevents an infinite loop, and a sad sad day for R
     } 
-    # For every new iteration of my for loop, create a new line
-    cat("\n")
+    cat("\n")                                     # For every new iteration of my for loop, create a new line
   }
 }
 
@@ -135,20 +128,18 @@ box<-function(height,width){
   # *               *
   # *****************
 box.text<-function(height,width,words){ 
-  # Makes the box fit the words incase the words dont fit the box
-  width<-max(width,nchar(words)+2)
+  width<-max(width,nchar(words)+2)                        # Makes the box fit the words incase the words dont fit the box
   height<-max(height,3)
   for (h in 1:height){ 
     w<-1
     while(w<=width){
       if(h==1 || h==height || w==1 || w==width){
-        cat("*")
+        cat("*")                                          # Add words to the center of the box. Ceiling rounds up, floor rounds down
       } else{
-        ## Add words to the center of the box. Ceiling rounds up, floor rounds down
-        if(h==ceiling(height/2)     # Puts the words in the middle of the box vertically
-          && w==ceiling(width/2)-floor(nchar(words)/2)){ # Puts the words in the middle of the box horizontally and makes it center instead of left align
-          cat(words)      # Prints the words from the function
-          w<-w+nchar(words)-1   # Get rid of blank spaces so the box is actually a box and not something funky
+        if(h==ceiling(height/2)                           # Puts the words in the middle of the box vertically
+          && w==ceiling(width/2)-floor(nchar(words)/2)){  # Puts the words in the middle of the box horizontally and makes it center instead of left align
+          cat(words)                                      # Prints the words from the function
+          w<-w+nchar(words)-1                             # Get rid of blank spaces so the box is actually a box and not something funky
           } else {
             cat(" ")
         } 
@@ -173,12 +164,12 @@ box.text.b<-function(border,height,width,words){
     w<-1
     while(w<=width){
       if(h==1 || h==height || w==1 || w==width){
-        if(h==1 || h==height){      # If the top or bottom of the box then use the text from the border parameter in the function
-          b<-((w-1)%%nchar(border))+1 # Makes b=1 when w=0 and then loops through the rest of the letters in the border parameter
+        if(h==1 || h==height){                             # If the top or bottom of the box then use the text from the border parameter in the function
+          b<-((w-1)%%nchar(border))+1                      # Makes b=1 when w=0 and then loops through the rest of the letters in the border parameter
         } else{
-          b<-1  # If in the center rows, always start with the first letter of the border parameter
+          b<-1                                             # If in the center rows, always start with the first letter of the border parameter
         }
-        cat(substr(border,b,b)) # substr is a function that recognizes each letter in a word, cat then prints that letter based on the index "b" which we defined previously
+        cat(substr(border,b,b))                            # substr is a function that recognizes each letter in a word, cat then prints that letter based on the index "b" which we defined previously
       } else {
         if(h==ceiling(height/2)
            && w==ceiling(width/2)-floor(nchar(words)/2)){
