@@ -107,8 +107,7 @@ gl(5,4,20)  ## - Generates the numbers 1:5 in sets of 4 (i.e., 1,1,1,1,2,2,2,2,3
 gl(2,1,10,labels=c("Marley", "Haupt")) ## [1] Marley Haupt Marley Haupt Marley Haupt (10 times) w/ Levels Marley and Haupt
 
 ##### identical - Test Objects for Exact Equality
-  # - A good way to check if two objects are exactly equal. If so, then TRUE if not then FALSE. 
-  # - Even checks the type (i.e. double vs. integer)
+  # - A good way to check if two objects are exactly equal. If so, then TRUE if not then FALSE. Even checks the type (i.e. double vs. integer)
 x<-matrix(1:20,4,5)
 y<-c(1,2,3,4)
 identical(x,y) #[1] FALSE
@@ -116,10 +115,9 @@ y<-matrix(1:20,4,5)
 identical(x,y) #[1] TRUE
 
 ##### image - Display a Color Image
-  # - Can be used to visualize 3D spatial data (aka images). Creates a grid of colored or gray-scale rectangles c
-  # - corresponding to values of z
-image(t(volcano)[ncol(volcano):1,]) # I tried to think of an example that I could make up myself 
-x<-y<-seq(-4*pi, 4*pi, len=27)      # but I wasn't sure where to start
+  # - Can be used to visualize 3D spatial data (aka images). Creates a grid of colored or gray-scale rectangles c corresponding to values of z
+image(t(volcano)[ncol(volcano):1,]) 
+x<-y<-seq(-4*pi, 4*pi, len=27)      
 r<-sqrt(outer(x^2,y^2,"+"))
 image(z=z<-cos(r^2)*exp(-r/6),col=gray((0:32)/32))
 
@@ -137,12 +135,11 @@ jitter(x)
 # [1] 1.095372 2.032013 3.081988 3.973232 5.166270 5.803110 7.132575 7.885574 9.139420 9.956630
 
 ##### ls; what does rm(list=ls(()) do? - List Objects
-  # - rm(list=ls()) erases R's memory of the names of objects you have previously called out
+  # - rm(list=ls()) erases R's memory of all the names of objects you have previously called out
   # - ls shows what data sets and functions have been defined by the user (when invoked with no argument)
   # - ls returns the names of the functions local variables (when invoked with no argument inside of a function)
 marleyfunc<-function(){y<-1;ls()}
-marleyfunc
-#function(){y<-1;ls()}  shows "y"
+marleyfunc()			#shows "y"
 x<-c(1,2,3)
 q<-c(4,5,6)
 x
@@ -168,7 +165,7 @@ min(m2)
 ##### paste - Concatenate Strings
   # - allows you to concatenate vectors after converting to character
 family<-c("marley","seth","shelley","jeff","howard")
-paste(family,"smells bad")
+paste(family[2:5],"smells bad but",family[1],"smells good")
 
 ##### read.csv, read.table, write.csv, write.table - Data Input and Output
   # - allows you to input data into R from another file 
@@ -186,7 +183,7 @@ head(test)
 #[1] 4.543691 5.187280 5.029950 4.514121 6.613280 3.467950
 x=seq(1,20,by=0.5)
 test2<-dnorm(x,mean=10,sd=1)
-plot(test2)
+plot(test2,type="l",col="pink")
 
 ##### runif, rpois - Uniform Distribution and Poisson Distribution
   # - similar to rnorm, but for a uniform and poisson distribution, respectively
@@ -194,7 +191,7 @@ rpois(n=100,lambda=10)
 runif(n=100,min=1,max=10)
 
 ##### rank - Sample Ranks
-  # - Ranks the values inside of a vector (from smalles to largest)
+  # - Ranks the values inside of a vector (from smallest to largest)
 x<-c(3,1,4,15,92)
 rank(x)
 # [1] 2 1 3 4 5
@@ -214,24 +211,22 @@ outer(x,y)
 ##### rep - Replicate Elements of Vectors and Lists
   # - replicates the values in x, rep.int and rep_len are faster simplified versions
 x<-1:9
-rep(x)
-rep.int(x,2)
-rep_len(x,2)
+rep(x)	#[1] 1 2 3 4 5 6 7 8 9
+rep.int(x,2) #[1] 1 2 3 4 5 6 7 8 9 1 2 3 4 5 6 7 8 9
+rep_len(x,2)	 #[1] 1 2
 
 ##### rowSums, colSums - Form Row and Columns Sums and Means
   # - Form row and column sums and means for numeric arrays (or data frames)
 x<-matrix(1:20,4,5)
-colSums(x)
-rowSums(x)
+colSums(x)	#[1] 10 26 42 58 74
+rowSums(x)	#[1] 45 50 55 60
 
 ##### seq - Sequence
   # - creates a sequence vector
-x<-seq(1,20,by=2)
+x<-seq(1,20,by=2) #[1] 1 3 5 7 9 11 13 15 17 19
 
 ##### source - Read R Code from a File or a Connection
-  # - allows R to accept input from a named file or URL connection. Input is read and parsed
-  # - that file until the end of the file is reached, then the parsed expressions are eval-
-  # - uated sequentially in the chosen environment
+  # - allows R to accept input from a named file or URL connection. Input is read and parsed into that file until the end of the file is reached, then the parsed expressions are evaluated sequentially in the chosen environment
 setwd("/Users/marleyjadehaupt/Dropbox/Docs_Marley/Graduate_Courses/BIOL4750_BayesianStats/RScripts/")
 source("normalGibbs.r")
 
@@ -239,28 +234,29 @@ source("normalGibbs.r")
   ##### - TRUE or FALSE
   # - Give the TRUE indices of a logical object, allowing for array indices
   # - Determines the location, i.e., index of the (first) min or max of a numeric (or logical vector)
-which(LETTERS == "A")
+which(LETTERS == "A")	#[1] 1
 x<-c(3,7,8,1,2,10,9)
-which.min(x)
+which.min(x)		#[1] 4
 
 ##### setdiff, intersect, union - Set Operations
   # - shows the different values, shows the same values, combines the two together
 x<-c(1,2,3,4)
 y<-c(4,5,6,7)
-union(x,y)
-intersect(x,y)
-setdiff(x,y)
-setdiff(y,x)
+union(x,y)	#[1] 1 2 3 4 5 6 7
+intersect(x,y) #[1] 4
+setdiff(x,y) #[1] 1 2 3
+setdiff(y,x) #[1] 5 6 7
 
 ##### table - Cross Tabulation and Table Creation
-  # - uses the cross-classifying factors to build a contingency table of the counts at each 
-  # - combination of factor levels
-a<-rep(c(NA,1/0:3),10)
+  # - uses the cross-classifying factors to build a contingency table of the counts at each combination of factor levels
+a<-rep(5:10,2)
 table(a)
+# a
+# 5 6 7 8 9 10
+# 2 2 2 2 2 2 
 
 ##### with - Evaluate an Expression in a Data Environment
-  # - Evaluate an R expression in an environment constructed from data, possibly modifying
-  # - (a copy of) the original data
+  # - Evaluate an R expression in an environment constructed from data, possibly modifying (a copy of) the original data
 library(MASS)
 with(anorexia, {
   anorex.1<-glm(Postwt ~ Prewt + Treat +  offset(Prewt),
@@ -272,14 +268,8 @@ with(anorexia, {
 ## Bonus exercises #############################
 ################################################
 
-bonus.text <- "It was the best of times, it was the worst of times, it was the age of
-wisdom, it was the age of foolishness, it was the epoch of belief, it
-was the epoch of incredulity, it it was the season of Light, it was the
-season of Darkness, it was the spring of hope, it was the winter of
-despair, we had everything before us, we had nothing before us, we
-were all going direct to Heaven, we were all going direct the other
-way- in short, the period was so far like the present period, that
-some of its noiosiest authorities insisted on its being received, for
-good or for evil, in the superlative degree of comparison only."
+bonus.text <- "It was the best of times, it was the worst of times, it was the age of wisdom, it was the age of foolishness, it was the epoch of belief, it was the epoch of incredulity, it it was the season of Light, it was the season of Darkness, it was the spring of hope, it was the winter of despair, we had everything before us, we had nothing before us, we were all going direct to Heaven, we were all going direct the other way- in short, the period was so far like the present period, that some of its noiosiest authorities insisted on its being received, for good or for evil, in the superlative degree of comparison only."
+### 
 
 ## A Tale of Two Cities! (I didn't even have to google this)
+## I read the regular expressions help file and I even did some additional reading about regular expression on www.regular-expressions.info/tutorial.html but I am going to need some help with this.
