@@ -33,7 +33,7 @@ ask.cat.cat <- function(x, ...)
   return("CAT!!")
 
 # 2. Implement a point class that holds x and y information for a point in space.
-pointclass<-function(x,y){
+new.point<-function(x,y){
   output<-list(x=x,y=y)
   class(output)<-"point"
   return(output)
@@ -43,20 +43,28 @@ pointclass<-function(x,y){
 distance<-function(point1, point2){ 
   if(!inherits(point1,"point") | !inherits(point2,"point"))
      stop("Not a Point Class") 
-  output<-sqrt((point1$x - point2$x)^2 + (point1$y - point2$y)^2)
+  output<-sqrt((point1$x - point2$x)^2 + (point1$y - point2$y)^2)     # Distance Formula
   return(output)
 }
 
 # 4. Implement a line class that takes two point objects and makes a line between them.
-lineclass<-function(point1, point2){
-  if(!inherits(point1,"point") | !inherits(point2,"point"))
-    stop("Not a Point Class")
-  plot(x = list(point1$x,point2$x),y= list(point1$y,point2$y), type='l')
-}
+new.line<-function(point1, point2){
+  if(!inherits(point1,"point") | !inherits(point2,"point")){
+    stop("Input Must Be a Point Class")
+  }
+  output<-list(x1 = point1$x, y1 = point1$y, x2 = point2$x, y2 = point2$y)
+  class(output)<-"line"
+  return(plot(x = list(output$x1,output$x2),y= list(output$y1,output$y2), type='l'))
+} 
 
 # 5. Implement a polygon class that stores a polygon from point objects. Hint: a polygon
   # is really just a load of lines.
-
+polygclass<-function(point1,point2,point3,point4){
+  if(!inherits(point1, "point") | !inherits(point2, "point") | 
+     !inherits(point3, "point") | !inherits(point4, "point"))
+    stop("Not a Point Class")
+  
+}
 
 # 6. Write plot methods for point and line objects.
 

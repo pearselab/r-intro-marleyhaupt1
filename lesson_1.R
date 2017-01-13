@@ -3,11 +3,12 @@
 ################################################
 
 # c - concatenate
-#     - takes two (or more) vector and joins them together
+#     - takes two (or more) vectors and joins them together
 c(1, 2, 3)
 c(c(1,2,3), c(4,5,6))
 #     - they need to be of the same type, though!
-c(1,2, "three")
+# c("1","2", "three") character vector
+# c(1,2,3) numeric vector
 
 ##### cat - concatenate and print
   # - kind of like print but print returns a vector and cat returns an object of class "NULL"
@@ -27,16 +28,17 @@ m2<-cbind(m2,15:21)[,c(1,3,2)]
   # - returns a matrix of integers indicating their row/column in a matrix like object
 m2<-matrix(0,5,5)
 m2[row(m2)==col(m2)]<-1
-##This creates a 5:5 matrix and inserts 1 diagonally across the rows, but I'm not really sure why....I've played around
-  #with this a bit and I think I am going to need a little bit of extra explanation
+##This creates a 5:5 matrix and inserts 1 diagonally across the rows
+m2[row(m2)]<-1
+## This inserts the number 1 into the first column of every row of the matrix
 
 ##### cut - convert numeric to factor
-  # - divides a numeric vector into different ranges
+  # - divides a numeric vector into different ranges and codes the values in the vector accourding to which interval they fall. The leftmost interval corresponds to level one, the next leftmost to level two and so on.
 x<-rbinom(5,20,0.2)
 #[1] 6 6 3 1 1
 test<-cut(x,breaks=2)
-#[1] (3.5,6]    (3.5,6]   (0.995,3.5] (0.995,3.5] (0.995,3.5]
-#Levels: (0.995,3.5]  (3.5,6]
+#[1] (3.5,6]    (3.5,6]   (0.995,3.5] (0.995,3.5] (0.995,3.5] This tells you what break or interval the number falls into
+#Levels: (0.995,3.5]  (3.5,6] This tells you what the two "breaks" or intervals are
 
 ##### diff - Lagged Differences
   # - returns suitably lagged and iterated differences
@@ -53,11 +55,10 @@ m2<-matrix(1:12,3,4)
 dim(m2)
 #[1] 3 4
 dim(airquality) #airquality is a dataset that is already in R
-  #[1] 153  6
+  #[1] 153  6 		# 153 rows, 6 columns 
 
-##### rownames, colnames, names - retrieve or set the row or column names of a matrix-like object, The names of an object
-  # - allows you to set the names of rows and columns in a matrix, allows you to get or set the names of an object
-x<-matrix(data=NA,4,0)
+##### rownames, colnames, names - retrieve or set the row or column names of a matrix-like object, The names of an object allows you to set the names of rows and columns in a matrix, allows you to get or set the names of an object
+y<-matrix(data=NA,4,0)
 y<-cbind(1,1:4)
 colnames(y)<-c("ones","one to four")
 rownames(y)<-c("ur","mom","goes 2","college")
@@ -67,11 +68,12 @@ rownames(y)<-c("ur","mom","goes 2","college")
   # - Takes a vector or factor and turns it into a dataframe! Yay!
 x<-seq(0,100,by=10)
 y<-seq(-10,10,by=1)
-expand.grid(x,y)
-head(expand.grid(x,y))
+head(expand.grid(x,y)) #lines up each value of x in one the first column with each value of y in the other column (shows only the first 6 rows because of the head command)
+head(expand.grid(y,x)) #lines up each value of y in the first column with each value of x in the other....
 
 ##### eigen - Spectral Decomposition of a Matrix
-  # - Computes eigenvalues and eigenvectors of numeric or complex matrices
+  # - Computes eigenvalues and eigenvectors of numeric (double, integer, or logical) or complex matrices
+  # - Two very exciting and not very English sounding definitions for an eigen value: (1) each of a set of values of a parameter for which a differential equation has a nonzero solution (an eigenfunction) under givenconditions (2) any number such that a given matrix minus that number times the identity matrix has a zero determinant.
 v<-cbind(c(1,-1),c(-1,1))
 eigen(v)
 
@@ -80,6 +82,9 @@ eigen(v)
 x<-matrix(1,2,2)
 y<-matrix(1:4,2,2)
 x %*% y
+#		[,1] [,2]
+# [1,]	 3    7
+# [2,]   3    7
 
 ##### lower.tri, upper.tri - Lower and Upper Triangular Part of Matrix
   # - Turns the values of a matrix to TRUEs or FALSEs with the TRUEs in either the "lower" or "upper" triangle
@@ -88,16 +93,13 @@ lower.tri(m2)
 upper.tri(m2)
 
 ##### diag - Matrix Diagonals
-  # - Used for 4 things: (1) if x is a matrix it extracts the diagonal (2) if x is missing and nrow is specified 
-  # - it returns an identify matrix (3) if x is a scalar and the only argument, it returns a square identity matrix
-  # - given by the scalar (4) if x is a numeric vector with a length >2 or with further arguements, it returns
-  # - a matrix with the given diagonal and zero off-diagonal entries
-x<-matrix(1:20,4,5)
-diag(x)
-diag(NA,nrow=2)
-diag(3)
-y<-c(1,2,3,4)
-diag(y)
+  # - Used for 4 things: (1) if x is a matrix it extracts the diagonal (2) if x is missing and nrow is specified it returns an identify matrix (3) if x is a scalar and the only argument, it returns a square identity matrix given by the scalar (4) if x is a numeric vector with a length >2 or with further arguements, it returns a matrix with the given diagonal and zero off-diagonal entries
+x<-matrix(1:20,4,5)	# 1
+diag(x)				# 1
+diag(NA,nrow=2)		# 2
+diag(3)				# 3
+y<-c(1,2,3,4)		# 4
+diag(y)				# 4
 
 ##### gl - Generate Factor Levels
   # - Generates factors by specifying the pattern of their levels
