@@ -240,7 +240,7 @@ box.text.b<-function(border,height,width,words){
   # until the faculty member plummets to their doom.
 
 ## 16. Sadly, by the time you have completed your simulation the faculty member
-  # has perished. Professor Savitzky is keep to ensure this will never happen again,
+  # has perished. Professor Savitzky is keen to ensure this will never happen again,
   # and so has suggested each faculty member be attached, via rubber band, to a 
   # pole at the center of the site whenever conducting fieldwork. He assures you
   # that you can model this by assuing that the faculty member, at each time-step
