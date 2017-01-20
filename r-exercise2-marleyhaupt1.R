@@ -67,8 +67,8 @@ plotgomp<-function(start,end,by,a,b,c){
   }
   plot(x=time, y=popsize, xlab="Time", 
        ylab="Population Size", main="Gompertz Plot")
-  abline(h=a, lty=2, col="blue")            # Adds a red horizontal line that intersects the y axis at the value of the parameter a
-  abline(h=b, lty=2, col="red")           # Adds a blue horizontal line that intersects the y axis at the value of the parameter b
+  abline(h=a, lty=2, col="blue")          # Adds a blue horizontal line that intersects the y axis at the value of the parameter a
+  abline(h=b, lty=2, col="red")           # Adds a red horizontal line that intersects the y axis at the value of the parameter b
 }  
 
 ## 7. The biologist has fallen in love with your plotting function, but wants
@@ -101,7 +101,31 @@ plotgomp<-function(start,end,by,a,b,c){
   # Modify your function to plot in purple any y value that is above a and b.
   # Hint: Try putting 3==3 & 2==2 and 3==4 | 2==2 into an if statement and see
   # what you get. Using this construction may make this simpler.
-
+plotgomp<-function(start,end,by,a,b,c){     
+  time<-seq(start,end,by)
+  popsize<-c(NA) 
+  color<-c(NA)
+  for(i in 1:length(time)){
+    y<-gompertz(start+(i-1)*by,a,b,c)
+    popsize[i]<-y
+    if(y>=a){
+      color[i]<-"blue"
+      } else {
+        color[i]<-"black"
+      }
+    if (y>=b){
+      color[i]<-"red"
+    } else {
+        color[i]<-"black"
+    }
+    if (y>= a && b){
+    	color[i]<-"purple"
+    }
+  }
+  plot(x=time, y=popsize, xlab="Time", ylab= "Population Size", main= "Gompertz Plot", col=color)
+  abline(h=a, col="blue", lty=2)
+  abline(h=b, col="red", lty=2)
+}
 
 ## 9. Write a function that draws boxes of a specified height and look like this
   # (height 3, width 5):
@@ -130,18 +154,18 @@ box<-function(height,width){
   # *               *
   # *****************
 box.text<-function(height,width,words){ 
-  width<-max(width,nchar(words)+2)                        # Makes the box fit the words incase the words dont fit the box
-  height<-max(height,3)
+  width<-max(width,nchar(words)+2)                          # Makes the box fit the words incase the words don't fit the box (nchar counts the number of characters in the text)
+  height<-max(height,3)									    # Makes the height of the box equal to the larger of either the height or 3 (3 so that the word will fit in the box)
   for (h in 1:height){ 
     w<-1
     while(w<=width){
       if(h==1 || h==height || w==1 || w==width){
-        cat("*")                                          # Add words to the center of the box. Ceiling rounds up, floor rounds down
-      } else{
-        if(h==ceiling(height/2)                           # Puts the words in the middle of the box vertically
-          && w==ceiling(width/2)-floor(nchar(words)/2)){  # Puts the words in the middle of the box horizontally and makes it center instead of left align
-          cat(words)                                      # Prints the words from the function
-          w<-w+nchar(words)-1                             # Get rid of blank spaces so the box is actually a box and not something funky
+        cat("*")                                          
+      } else{											    # Add words to the center of the box. Ceiling rounds up, floor rounds down
+        if(h==ceiling(height/2)                             # Puts the words in the middle of the box vertically
+          && w==ceiling(width/2)-ceiling(nchar(words)/2)){  # Puts the words in the middle of the box horizontally and makes it center instead of left align
+          cat(words)                                        # Prints the words from the function
+          w<-w+nchar(words)-1                               # Gets rid of blank spaces so the box is actually a box and not something funky
           } else {
             cat(" ")
         } 
@@ -192,8 +216,9 @@ box.text.b<-function(border,height,width,words){
   # present (drawn, for example, from the Poisson distribution). Write a function
   # that simulates the abundance of a species at n sites given a probability of
   # presence (p) and that its abundance is drawn from a Poisson with a given 
-  # (lambda). Hint: there is no ernoulli distribution in R, but the Bernoulli is
+  # (lambda). Hint: there is no bernoulli distribution in R, but the Bernoulli is
   # a special case of what distribution?...
+ 
 
 ## 13. An ecologist really likes your hurdle function (will you never learn?). 
   # Write them a function that simulates lots of species (each with their own p 
