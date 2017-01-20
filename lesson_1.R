@@ -276,7 +276,11 @@ bonus.text <- "It was the best of times, it was the worst of times, it was the a
 gregexpr(pattern="the+", bonus.text, ignore.case=TRUE)
 
 ## What lines end with vowels
+
 ## What lines begin with "was"
+
 ## Where "it" is written twice in a row
+
 ## Where three vowels are written in a row inside a single word
+
 ## All the words that come after the word "the"
