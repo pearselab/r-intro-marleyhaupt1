@@ -1,32 +1,34 @@
 # 1. Implement a cat class, complete with race and print methods
-mittens<-list(weight=10, speed="10")
+mittens<-list(weight=10, speed="10", color="calico")
 class(mittens)<-"cat"
 
-new.cat<-function(weight, speed){
-  output<-list(weight=weight,speed=speed)
+new.cat<-function(weight, speed, color){
+  output<-list(weight=weight,speed=speed, color=color)
   class(output)<-"cat"
   return(output)
 }
 
-race<-function(one,two){
+race<-function(one,two) {
   if(!inherits(one,"cat") | !inherits(two,"cat"))
     stop("Hey! Give me a Cat Class you Dummy")
   if(one$speed > two$speed){
     print("Cat one Wins!")
     return(one)
-  }
+  } else{
   print("Cat two Wins!")
   return(two)
 }
 
 print.cat<-function(x, ...){
-  cat("This cat weighs", x$weight, "lbs", ",is", x$color, ",and has a speed of", x$speed, "mph.")
+  cat("This cat weighs", x$weight, "lbs.", ", is", x$color, ", and has a speed of", x$speed, "mph.")
 }
 
 ask.cat<-function(x, ...)
   UseMethod("ask.cat")
 ask.cat.default<-function(x, ...)
-  return("Default")
+  return("Dunno what this is")
+ask.cat.character<-function(x, ...)
+  return("Character String")
 ask.cat.numeric <- function(x, ...)
   return("Number")
 ask.cat.cat <- function(x, ...)
@@ -37,6 +39,11 @@ new.point<-function(x,y){
   output<-list(x=x,y=y)
   class(output)<-"point"
   return(output)
+}
+
+print.point<-function(x,...){
+  point<-list(x$x, x$y)
+  print(point)
 }
 
 # 3. Write a distance method that calculates the distance between two points in space.
@@ -54,17 +61,23 @@ new.line<-function(point1, point2){
   }
   output<-list(x1 = point1$x, y1 = point1$y, x2 = point2$x, y2 = point2$y)
   class(output)<-"line"
-  return(plot(x = list(output$x1,output$x2),y= list(output$y1,output$y2), type='l'))
+  return(output)
+  ##return(plot(x = list(output$x1,output$x2),y= list(output$y1,output$y2), type='l'))
 } 
 
-# 5. Implement a polygon class that stores a polygon from point objects. Hint: a polygon
-  # is really just a load of lines.
-polygclass<-function(point1,point2,point3,point4){
-  if(!inherits(point1, "point") | !inherits(point2, "point") | 
-     !inherits(point3, "point") | !inherits(point4, "point"))
-    stop("Not a Point Class")
-  
-}
+# 5. Implement a polygon class that stores a polygon from point objects. Hint: a polygon is really just a load of lines.
+new.polygon<-function(...){
+  if(!inherits(..., "line"){
+    stop("Input Must Be a Line Class")
+  }
+  arguments<-list(...)
+  n<-length(arguments)
+  for(i in 1:n){
+    output<-list(x[i] = line$x, y[i] = line[i]$y)
+  }
+  class(output)<-"polygon"
+  return(output)
+} 
 
 # 6. Write plot methods for point and line objects.
 
