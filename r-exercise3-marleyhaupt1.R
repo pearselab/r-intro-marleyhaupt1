@@ -35,65 +35,49 @@ ask.cat.cat <- function(x, ...)
   return("CAT!!")
 
 # 2. Implement a point class that holds x and y information for a point in space.
-new.point<-function(x,y){
+new.pt<-function(x,y){
   output<-list(x=x,y=y)
   class(output)<-"point"
   return(output)
 }
 
-print.point<-function(x,...){
-  point<-list(x=x$x, y=x$y)
-  print(point)
-}
-
 # 3. Write a distance method that calculates the distance between two points in space.
-distance<-function(point1, point2){ 
-  if(!inherits(point1,"point") | !inherits(point2,"point"))
+dist.pt<-function(pt1, pt2){ 
+  if(!inherits(pt1,"point") | !inherits(pt2,"point"))
      stop("Not a Point Class") 
-  output<-sqrt((point1$x - point2$x)^2 + (point1$y - point2$y)^2)     # Distance Formula
+  output<-sqrt((pt1$x - pt2$x)^2 + (pt1$y - pt2$y)^2)     # Distance Formula
   return(output)
 }
 
 # 4. Implement a line class that takes two point objects and makes a line between them.
-new.line<-function(point1, point2){
-  if(!inherits(point1,"point") | !inherits(point2,"point")){
-    stop("Input Must Be a Point Class")
+new.ln<-function(pt1, pt2){
+  if(!inherits(pt1,"point") | !inherits(pt2,"point")){
+    stop("Input Must Be Point Class")
   }
-  output<-list(x1 = point1$x, y1 = point1$y, x2 = point2$x, y2 = point2$y)
+  output<-list(pt1, pt2)
   class(output)<-"line"
   return(output)
 } 
 
 # 5. Implement a polygon class that stores a polygon from point objects. Hint: a polygon is really just a load of lines.
-new.polygon<-function(TotalPoints, point1, point2, point3, point4){
-  if(!inherits(point1, "point") | !inherits(point2, "point") | !inherits(point3, "point") | !inherits(point4, "point")){
-    stop("Input Must Be a Point Class")
+new.plygn<-function(ln1, ln2, ln3, ln4){
+  if(!inherits(ln1, "line") | !inherits(ln2, "line") | !inherits(ln3, "line") | !inherits(ln4, "line")){
+    stop("Input Must Be Line Class")
   }
-  for(i in 1:4){
-    x[i] <- point[i]$x
-    y[i] <- point[i]$y
-    output<-list(x=x[i],y=y[i])
-    return(output)
-  }
-}
+  output<-list(ln1, ln2, ln3, ln4)
   class(output)<-"polygon"
   return(output)
-} 
+}
 
 # 6. Write plot methods for point and line objects.
-plot.point<-function(point){
-  if(!inherits(point, "point")){
-    stop("Not a Point Class")
+plot.pt<-function(pt){
+  if(!inherits(pt, "point")){
+    stop("Input Must Be Point Class")
   }
-  return(plot(x=point$x, y=point$y, xlab="X Axis", ylab="Y Axis", main="Your Mom Goes to College", col="red"))
+  return(plot(x=pt$x, y=pt$y, xlab="X Axis", ylab="Y Axis", main="Your Mom Goes to College", col="red"))
 }
 
-plot.line<-function(line){
-  if(!inherits(line, "line")){
-    stop("Not a Line Class")
-  }
-  return(plot(x = list(line$x1,line$x2),y= list(line$y1,line$y2), xlab="X Axis", ylab="Y Axis", main="Your Mom Goes to College", type='l', col="red"))
-}
+
 
 # 7. Write a plot method for a polygon. Hint: if this isn't trivial, your doing something wrong.
 plot.polygon<-function(polygon){
@@ -104,11 +88,9 @@ plot.polygon<-function(polygon){
               xlab="X Axis", ylab="Y Axis", main="Your Mom Goes to College", type='l', col="red"))
 }
 
-# 8. Create a canvas object that the add function can add point, line, circle, and polygon 
-  # objects too. Write plot and print methods for this class.
+# 8. Create a canvas object that the add function can add point, line, circle, and polygon objects too. Write plot and print methods for this class.
 
-# 9. Implement a circle object that takes a point and radius and stores a circle. Don't 
-  # make a circle out of lines!
+# 9. Implement a circle object that takes a point and radius and stores a circle. Don't make a circle out of lines!
 
 # 10. Write area generic methods for circle and polygon objects.
 
