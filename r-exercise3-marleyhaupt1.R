@@ -60,11 +60,11 @@ new.ln<-function(pt1, pt2){
 } 
 
 # 5. Implement a polygon class that stores a polygon from point objects. Hint: a polygon is really just a load of lines.
-new.plygn<-function(ln1, ln2, ln3, ln4){
-  if(!inherits(ln1, "line") | !inherits(ln2, "line") | !inherits(ln3, "line") | !inherits(ln4, "line")){
-    stop("Input Must Be Line Class")
+new.plygn<-function(pt1, pt2, pt3, pt4){
+  if(!inherits(pt1, "point") | !inherits(pt2, "point") | !inherits(pt3, "point") | !inherits(pt4, "point")){
+    stop("Input Must Be Point Class")
   }
-  output<-list(ln1, ln2, ln3, ln4)
+  output<-list(pt1, pt2, pt3, pt4)
   class(output)<-"polygon"
   return(output)
 }
@@ -74,19 +74,32 @@ plot.pt<-function(pt){
   if(!inherits(pt, "point")){
     stop("Input Must Be Point Class")
   }
-  return(plot(x=pt$x, y=pt$y, xlab="X Axis", ylab="Y Axis", main="Your Mom Goes to College", col="red"))
+  plot(x=pt$x, y=pt$y, xlab="X Axis", ylab="Y Axis", type="l",
+       main="Your Mom Goes to College", col="red", xlim=c(-5, 5), ylim=c(-5,5))
 }
 
-
+plot.ln<-function(ln){
+  if(!inherits(ln, "line")){
+    stop("Input Must Be Line Class")
+  }
+  plot(x=list(ln[[1]]$x, ln[[2]]$x), y=list(ln[[1]]$y, ln[[2]]$y), 
+    type="l", col="red", main="Line", xlab="X", ylab="Y", xlim=c(-5,5), ylim=c(-5,5))
+  par(new = TRUE)
+}                                                                               
 
 # 7. Write a plot method for a polygon. Hint: if this isn't trivial, your doing something wrong.
-plot.polygon<-function(polygon){
-  if(!inherits(polygon, "polygon")){
-    stop("Not a Polygon Class")
+plot.plygn<-function(pg){
+  if(!inherits(pg, "polygon")){
+    stop("Input Must Be Polygon Class")
   }
-  return(plot(x=list(polygon$x1, polygon$x2, polygon$x3, polygon$x4), y=list(polygon$y1, polygon$y2, polygon$y3, polygon$y4),
-              xlab="X Axis", ylab="Y Axis", main="Your Mom Goes to College", type='l', col="red"))
+  # plot(x=list(pg[[1]][[1]]$x, pg[[1]][[2]]$x, pg[[2]][[1]]$x, pg[[2]][[2]]$x, pg[[1]][[1]]$x), 
+  #      y=list(pg[[1]][[1]]$y, pg[[1]][[2]]$y, pg[[2]][[1]]$y, pg[[2]][[2]]$y, pg[[1]][[1]]$y), 
+  #      type="l", col="red", xlab="X", ylab="Y", main="Polygon")
+  for (i in 1:length(pg)){
+    plot.ln(pg[[i]])
+  }
 }
+
 
 # 8. Create a canvas object that the add function can add point, line, circle, and polygon objects too. Write plot and print methods for this class.
 
