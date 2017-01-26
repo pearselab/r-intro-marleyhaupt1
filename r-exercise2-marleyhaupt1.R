@@ -233,6 +233,31 @@ box.text.b<-function(border,height,width,words){
   # Normally-distributed distance in latitude and longitude in each interval. Could
   # you simulate this process 100 times and plot it for him?
 
+lost_prof<-function(start.x, start.y, speed.mph){
+  xlist<-list()
+  ylist<-list()
+  s<-speed.mph*5280/12
+  for (i in 1:100){
+    dist<-rnorm(1,s)
+    dir<-round(runif(1,1,4))
+    if(dir==1){
+      start.x<-start.x+dist
+    }  
+    if(dir==2){
+      start.x<-start.x-dist
+    }  
+    if(dir==3){
+      start.y<-start.y+dist
+    }  
+    if(dir==4){
+      start.y<-start.x-dist
+    } 
+    xlist<-append(xlist, start.x)
+    ylist<-append(ylist, start.y)
+  }
+  plot(x=xlist, y=ylist, col="red", type="l", main="Don't Die Professor")
+}
+
 ## 15. Professor Savitzky is deeply concerned to realise that the member of faculty
   # was, in fact, at the top of a steep mountain in the fog. Approximately 5 miles
   # away, in all directions, from the faculty member's starting point is a deadly
