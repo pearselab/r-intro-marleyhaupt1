@@ -277,7 +277,7 @@ lost_prof<-function(speed.mph){
 dead_prof<-function(speed.mph){ 
   start.x<-0
   start.y<-0
-  time<-1
+  time<-0
   ft<-speed.mph*5280/12              
   while (start.x <= 26400 || start.x >= -26400 || 
          start.y <= 26400 || start.y >= -26400){ 
@@ -291,19 +291,19 @@ dead_prof<-function(speed.mph){
     }
     if(dir==2){ 
       start.x<-start.x-dist
-      if(start.x >= -26400){
+      if(start.x <= -26400){
         return(time*5)
       }
     }
     if(dir==3){
       start.y<-start.y+dist
-      if(start.y <= 26400){
+      if(start.y >= 26400){
         return(time*5)
       }
     }
     if(dir==4){
       start.y<-start.x-dist
-      if(start.y >= 26400){
+      if(start.y <= -26400){
         return(time*5)
       }
     }
