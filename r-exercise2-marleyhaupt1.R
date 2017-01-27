@@ -161,7 +161,7 @@ box.text<-function(height,width,words){
     while(w<=width){
       if(h==1 || h==height || w==1 || w==width){
         cat("*")                                          
-      } else{											    # Add words to the center of the box. Ceiling rounds up, floor rounds down
+      } else{											                          # Add words to the center of the box. Ceiling rounds up, floor rounds down
         if(h==ceiling(height/2)                             # Puts the words in the middle of the box vertically
           && w==ceiling(width/2)-ceiling(nchar(words)/2)){  # Puts the words in the middle of the box horizontally and makes it center instead of left align
           cat(words)                                        # Prints the words from the function
@@ -218,7 +218,16 @@ box.text.b<-function(border,height,width,words){
   # presence (p) and that its abundance is drawn from a Poisson with a given 
   # (lambda). Hint: there is no bernoulli distribution in R, but the Bernoulli is
   # a special case of what distribution?...
- 
+
+#A bernoulli distribution is a special case of a binomial distribution
+hurdle.model<-function(n, lambda){
+  alist<-list()
+  for(i in 1:n){
+    q<-qpois(p, lambda = lambda)
+    alist<-append(alist,q)
+  }
+  return(alist)
+} 
 
 ## 13. An ecologist really likes your hurdle function (will you never learn?). 
   # Write them a function that simulates lots of species (each with their own p 
@@ -233,13 +242,15 @@ box.text.b<-function(border,height,width,words){
   # Normally-distributed distance in latitude and longitude in each interval. Could
   # you simulate this process 100 times and plot it for him?
 
-lost_prof<-function(start.x, start.y, speed.mph){
-  xlist<-list()
-  ylist<-list()
-  s<-speed.mph*5280/12
+lost_prof<-function(speed.mph){
+  xlist<-list()                     #Creates an empty list for the x values
+  ylist<-list()                     #Creates an empty list for the y values
+  start.x<-0
+  start.y<-0
+  s<-speed.mph*5280/12              #Takes a speed and converts it to the # of ft traveled in 5min
   for (i in 1:100){
-    dist<-rnorm(1,s)
-    dir<-round(runif(1,1,4))
+    dist<-rnorm(1,s)                #Randomly simulates the number of ft traveled every 5min
+    dir<-round(runif(1,1,4))        #Randomly determines a direction traveled
     if(dir==1){
       start.x<-start.x+dist
     }  
@@ -263,6 +274,42 @@ lost_prof<-function(start.x, start.y, speed.mph){
   # away, in all directions, from the faculty member's starting point is a deadly
   # cliff! He asks if you could run your simulation to see how long, on average,
   # until the faculty member plummets to their doom.
+dead_prof<-function(speed.mph){ 
+  start.x<-0
+  start.y<-0
+  time<-1
+  ft<-speed.mph*5280/12              
+  while (start.x <= 26400 || start.x >= -26400 || 
+         start.y <= 26400 || start.y >= -26400){ 
+    dist<-rnorm(1,ft)                
+    dir<-round(runif(1,1,4))        
+    if(dir==1){
+      start.x<-start.x+dist
+      if(start.x >= 26400){
+        return(time*5)
+      }
+    }
+    if(dir==2){ 
+      start.x<-start.x-dist
+      if(start.x >= -26400){
+        return(time*5)
+      }
+    }
+    if(dir==3){
+      start.y<-start.y+dist
+      if(start.y <= 26400){
+        return(time*5)
+      }
+    }
+    if(dir==4){
+      start.y<-start.x-dist
+      if(start.y >= 26400){
+        return(time*5)
+      }
+    }
+    time<-time+1
+  }
+}
 
 ## 16. Sadly, by the time you have completed your simulation the faculty member
   # has perished. Professor Savitzky is keen to ensure this will never happen again,
