@@ -2,26 +2,38 @@
   # random numbers. Use it to create a dataset of 10 variables, each drawn
   # from a Normal distribution with different means and variances. This can
   # be achieved on one line.
-replicate(10,rnorm(1,rnorm(1,10,1),runif(1,0,3)))
+r <- replicate(10,rnorm(1,rnorm(1,runif(1,0,10),runif(1,1,3)))) 
+
+#10 replications drawn from a normal distribution with means ranging from 0 to 10 and sds ranging from 1 to 3
 
 # 2. Make your own version of the summary function for continuous datasets 
   # (like the one you generated above). You don't have to slavishly replicated
   # summary.data.frame; write something you would find useful.
-my.summary<-function(input){
-  cat("Min", "\n", round(min(input),digits=2),"\n","Max","\n",round(max(input),digits=2), "\n",
-    "Mean", "\n", round(mean(input),digits=2), "\n", "Median","\n",round(median(input),digits=2))
+num.sum <- function(input){
+  if(!inherits(input, "numeric")){
+    stop("Input Must Be Numeric Class")
+  }
+  cat("Min:", "\n", round(min(input),digits=2),"\n","Max:","\n",round(max(input),digits=2), "\n",
+    "Mean:", "\n", round(mean(input),digits=2), "\n", "Median:","\n",round(median(input),digits=2))
 }
 
 # 3. Write a summary function to summarise datasets containing only
   # categorical (...!is.numeric...) data.
-summary.character<-function(input){
+char.sum <- function(input){
   if(!inherits(input,"character"))
-    stop("Input Non-character Class")
-  cat("Length","\n",length(input),"\n","Class","\n",class(input))
+    stop("Input Must Be Character Class")
+  cat("Length:","\n",length(input),"\n","Class:","\n",class(input))
 }
 
 # 4. Finally, make a summary function capable of covering both kinds of data 
-  # Hint: if your function doesnt call the functions above, youre likely doing it wrong.
+  # Hint: if your function doesn't call the functions above, youre likely doing it wrong.
+gen.sum <- function(input){
+  if(class(input)=="character"){
+    char.sum(input)
+  } else {
+    num.sum(input)
+  }
+}
 
 # 5. A molecular biologist you owe a favour approaches you with a problem. They
   # have a DNA sequence (e.g., 'ACGATATACGA') that they need to group into codons 
