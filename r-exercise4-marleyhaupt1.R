@@ -42,11 +42,16 @@ gen.sum <- function(input){
   # and an arbitrary codon lookup table, and output the translated sequence. Hint: 
   # expand.grid will help you make a demo lookup table.
 
+# use tapply 
+
 # 6. The molecular biologist now asks if you would write a function that will take
   # multiple sequences, translate them, and then flag where the sequences match-up (overlap).
 
-# 7. One more thing: could you also write a summary-type function that would report
-  # percentage overlap across sequences?
+# use mapply or Map
+
+# 7. One more thing: could you also write a summary-type function that would reportpercentage overlap across sequences?
+
+# write a summary function
 
 # 8. The molecular biologist's advisor has shouted at them for ignoring the start-codons
   # and stop-codons. Modify your function from (5) to cut off all bits of the sequences
