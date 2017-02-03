@@ -110,6 +110,14 @@ plot.pg<-function(pg){
 # 8. Create a canvas object that the add function can add point, line, circle, and polygon objects too. Write plot and print methods for this class.
 
 # 9. Implement a circle object that takes a point and radius and stores a circle. Don't make a circle out of lines!
+circle.obj <- function (point, radius){
+  if(!inherits(point, "point")){
+    stop("Not Point Class")
+  }
+  symbols(x=point$x, y=point$y, circles = radius, fg="red")
+  output <- list(point, radius)
+  class(output) <- "circle"
+}
 
 # 10. Write area generic methods for circle and polygon objects.
 
