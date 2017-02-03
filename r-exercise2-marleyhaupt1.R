@@ -219,21 +219,41 @@ box.text.b<-function(border,height,width,words){
   # (lambda). Hint: there is no bernoulli distribution in R, but the Bernoulli is
   # a special case of what distribution?...
 
-#A bernoulli distribution is a special case of a binomial distribution
-hurdle.model<-function(n, lambda){
-  alist<-list()
-  for(i in 1:n){
-    q<-qpois(p, lambda = lambda)
-    alist<-append(alist,q)
+hurdle.func<-function(n, lambda){
+  a <- list()
+  p <- runif(1)
+  for (i in 1:n){
+    if( p >= 0.4){
+      abund <- rpois(n=1, lambda)
+    } else {
+      abund <- 0
+    }
+    a <- append(a, abund)
   }
-  return(alist)
-} 
+  return(a)
+}
 
 ## 13. An ecologist really likes your hurdle function (will you never learn?). 
   # Write them a function that simulates lots of species (each with their own p 
   # and lambda) across n sites. Return the results in a matrix where each species
   # is a column, and each site a row (this is the standard used for ecology data 
   # in R).
+
+ss.hurdle <- function (species, sites, lambda){
+  a <- matrix(1, sites, species)
+  for (i in 1:species){
+    p <- runif(1)
+      for (j in 1:sites){
+        if( p >= 0.4){
+          abund <- rpois(n=1, lambda)
+        } else {
+          abund <- 0
+        }
+      a[j,i] <- abund
+    }
+  }
+  return(a)
+}
 
 ## 14. Professor Savitzky approaches you with a delicate problem. A member of faculty
   # became disoriented during fieldwork, and is now believed to be randomly
@@ -277,17 +297,18 @@ lost_prof<-function(speed.mph){
 dead_prof<-function(speed.mph){ 
   start.x<-0
   start.y<-0
+  average<-c()
+  ft<-speed.mph*5280/12
   time<-0
-  ft<-speed.mph*5280/12              
   while (start.x <= 26400 || start.x >= -26400 || 
-         start.y <= 26400 || start.y >= -26400){ 
+        start.y <= 26400 || start.y >= -26400){ 
     dist<-rnorm(1,ft)                
     dir<-round(runif(1,1,4))        
     if(dir==1){
       start.x<-start.x+dist
       if(start.x >= 26400){
         return(time*5)
-      }
+     }
     }
     if(dir==2){ 
       start.x<-start.x-dist
@@ -310,6 +331,7 @@ dead_prof<-function(speed.mph){
     time<-time+1
   }
 }
+
 
 ## 16. Sadly, by the time you have completed your simulation the faculty member
   # has perished. Professor Savitzky is keen to ensure this will never happen again,
