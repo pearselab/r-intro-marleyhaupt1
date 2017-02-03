@@ -332,7 +332,6 @@ dead_prof<-function(speed.mph){
   }
 }
 
-
 ## 16. Sadly, by the time you have completed your simulation the faculty member
   # has perished. Professor Savitzky is keen to ensure this will never happen again,
   # and so has suggested each faculty member be attached, via rubber band, to a 
