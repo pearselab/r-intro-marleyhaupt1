@@ -41,14 +41,25 @@ gen.sum <- function(input){
   # and an arbitrary codon lookup table, and output the translated sequence. Hint: 
   # expand.grid will help you make a demo lookup table.
 
-# use tapply 
+codon.function <- function(input){
+  codons <- expand.grid(first = c("A","T","C","G"), second = c("A","T","C","G"), third = c("A","T","C","G"))
+  amino.acids <- c("lys", "STOP", "gin", "glu", "ile", "leu", "leu", "val", "thr", "ser", "pro", "ala", "arg",
+                 "STOP", "arg", "gly", "asn", "tyr", "his", "asp", "ile", "phe", "leu", "val", "thr", "ser",
+                 "pro", "ala", "ser", "cys", "arg", "gly", "asn", "tyr", "his", "asp", "ile", "phy", "leu",
+                 "val", "thr", "ser", "pro", "ala", "ser", "cys", "arg", "gly", "lys", "STOP", "gin", "glu",
+                 "met / START", "leu", "leu", "val", "thr", "ser", "pro", "ala", "arg", "trp", "arg", "gly")
+  codons <- cbind(codons, amino.acids)[,c(1,2,3,4)]
+  colnames (codons)[4] <- "Amino Acids"
+  tapply(input, codons, )
+}
 
 # 6. The molecular biologist now asks if you would write a function that will take
   # multiple sequences, translate them, and then flag where the sequences match-up (overlap).
 
 # use mapply or Map
 
-# 7. One more thing: could you also write a summary-type function that would reportpercentage overlap across sequences?
+# 7. One more thing: could you also write a summary-type function that would report 
+  # percentage overlap across sequences?
 
 # write a summary function
 
