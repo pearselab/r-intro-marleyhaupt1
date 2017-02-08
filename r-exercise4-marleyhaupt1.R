@@ -48,20 +48,16 @@ codon.function <- function(input){
                  "pro", "ala", "ser", "cys", "arg", "gly", "asn", "tyr", "his", "asp", "ile", "phy", "leu",
                  "val", "thr", "ser", "pro", "ala", "ser", "cys", "arg", "gly", "lys", "STOP", "gin", "glu",
                  "met / START", "leu", "leu", "val", "thr", "ser", "pro", "ala", "arg", "trp", "arg", "gly")
-  codons <- cbind(codons, amino.acids)[,c(1,2,3,4)]
-  colnames (codons)[4] <- "Amino Acids"
-  tapply(input, codons, )
+  codons <- apply(codons, 1, paste, collapse="")
+  names(amino.acids) <- codons
+  return(amino.acids[input])
 }
 
 # 6. The molecular biologist now asks if you would write a function that will take
   # multiple sequences, translate them, and then flag where the sequences match-up (overlap).
 
-# use mapply or Map
-
 # 7. One more thing: could you also write a summary-type function that would report 
   # percentage overlap across sequences?
-
-# write a summary function
 
 # 8. The molecular biologist's advisor has shouted at them for ignoring the start-codons
   # and stop-codons. Modify your function from (5) to cut off all bits of the sequences

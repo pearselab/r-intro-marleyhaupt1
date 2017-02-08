@@ -107,7 +107,8 @@ plot.pg<-function(pg){
   }
 }
 
-# 8. Create a canvas object that the add function can add point, line, circle, and polygon objects too. Write plot and print methods for this class.
+# 8. Create a canvas object that the add function can add point, line, circle, and polygon objects too. 
+  # Write plot and print methods for this class.
 
 # 9. Implement a circle object that takes a point and radius and stores a circle. Don't make a circle out of lines!
 circle.obj <- function (point, radius){
@@ -117,9 +118,36 @@ circle.obj <- function (point, radius){
   symbols(x=point$x, y=point$y, circles = radius, fg="red")
   output <- list(point, radius)
   class(output) <- "circle"
+  return(output)
 }
 
 # 10. Write area generic methods for circle and polygon objects.
+area.circle <- function (circle){
+  if(!inherits(cirlce, "circle")){
+    stop("Input Must Be Circle Class")
+  }
+  area <- pi * circle[[2]][1]^2
+  return(area)
+}
+
+area.pg <- function(x){
+  n <- length(x)
+  sum <- c()
+  for(i in 1:n){
+    if(i < n){
+      p <- 0.5 * ((x[[i+1]]$x + x[[i]]$x) * (x[[i+1]]$y - x[[i]]$y))
+      sum <- append(sum, p)
+    } else {
+      p <- 0.5 * ((x[[1]]$x + x[[i]]$x) * (x[[1]]$y - x[[i]]$y))
+      sum <- append(sum, p)
+    }
+  }
+  area <- sum(sum)
+  return(area)
+} 
+
+# I used the Green's Theorem to approximate the area of an N sided polygon.
+  # I'm not sure if that is what you wanted me to use....
 
 # 11. Add support for circle objects to your canvas.
 
