@@ -297,7 +297,6 @@ lost_prof<-function(speed.mph){
 dead_prof<-function(speed.mph){ 
   start.x<-0
   start.y<-0
-  average<-c()
   ft<-speed.mph*5280/12
   time<-0
   while (start.x <= 26400 || start.x >= -26400 || 
@@ -336,11 +335,62 @@ dead_prof<-function(speed.mph){
   # has perished. Professor Savitzky is keen to ensure this will never happen again,
   # and so has suggested each faculty member be attached, via rubber band, to a 
   # pole at the center of the site whenever conducting fieldwork. He assures you
-  # that you can model this by assuing that the faculty member, at each time-step
+  # that you can model this by assuming that the faculty member, at each time-step
   # moves alpha * distance-from-pole latitudinally and longitudinally (in 
   # additon to the rate of movement you've already simulated) each time-step.
   # Simulate this, and see how strong the rubber band (alpha) must be to keep
   # the faculty member safe for at least a day.
+rubber.prof<-function(speed.mph){
+  start.x <- 0
+  start.y <- 0
+  ft<-speed.mph*5280/12
+  alpha <- 1
+  time <- 0
+  while (time <= 1440){ 
+    while (start.x <= 26400 || start.x >= -26400 || 
+           start.y <= 26400 || start.y >= -26400){ 
+      dist<-rnorm(1,ft)                
+      dir<-round(runif(1,1,4))        
+      if(dir==1){
+        start.x<-start.x+dist
+        hypot.sq <- start.x^2 + start.y^2
+        hypot <- sqrt(hypot.sq)
+        alpha <- alpha * hypot 
+        if(start.x >= 26400){
+          return(c(alpha, time))
+        }
+      }
+      if(dir==2){
+        start.x<-start.x+dist
+        hypot.sq <- start.x^2 + start.y^2
+        hypot <- sqrt(hypot.sq)
+        alpha <- alpha * hypot 
+        if(start.x >= 26400){
+          return(c(alpha, time))
+        }
+      }
+      if(dir==3){
+        start.x<-start.x+dist
+        hypot.sq <- start.x^2 + start.y^2
+        hypot <- sqrt(hypot.sq)
+        alpha <- alpha * hypot 
+        if(start.x >= 26400){
+          return(c(alpha,time))
+        }
+      }
+      if(dir==4){
+        start.x<-start.x+dist
+        hypot.sq <- start.x^2 + start.y^2
+        hypot <- sqrt(hypot.sq)
+        alpha <- alpha * hypot 
+        if(start.x >= 26400){
+          return(c(alpha,time))
+        }
+      }
+      time<-time+5
+    }
+  }
+}
 
 ## 17. (If you finish early: Most, if not all, faculty members are not as young
   # as they once were. See what effect the faculty member tiring (and 
