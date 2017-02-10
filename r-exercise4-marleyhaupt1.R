@@ -3,7 +3,7 @@
   # from a Normal distribution with different means and variances. This can
   # be achieved on one line.
 r <- replicate(10,rnorm(1,rnorm(1,runif(1,0,10),runif(1,1,3)))) 
-          #10 replications drawn from a normal distribution, with means ranging from 0 to 10, and sds ranging from 1 to 3
+          #10 replications drawn from a normal distribution with means ranging from 0 to 10 and sds ranging from 1 to 3
 
 # 2. Make your own version of the summary function for continuous datasets 
   # (like the one you generated above). You don't have to slavishly replicated
