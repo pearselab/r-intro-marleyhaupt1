@@ -147,7 +147,6 @@ area.pg <- function(x){
 } 
 
 # I used the Green's Theorem to approximate the area of an N sided polygon.
-  # I'm not sure if that is what you wanted me to use....
 
 # 11. Add support for circle objects to your canvas.
 
